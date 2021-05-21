@@ -92,9 +92,9 @@ class Delaunay:
             p3 = t1.get_opposite(e)
             p4 = t2.get_opposite(e)
             # получаем окружность по трём точкам
-            circle_now = Utility.get_circle(p1, p2, p3)
+            circle = Utility.get_circle(p1, p2, p3)
             # если четвертая точка в коружности, то делаем флип
-            if Utility.is_in_circle(circle_now, p4):
+            if Utility.is_in_circle(circle, p4):
                 id1 = t1.id
                 id2 = t2.id
                 e13 = (p1, p3)
