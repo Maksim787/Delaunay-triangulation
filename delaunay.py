@@ -130,7 +130,7 @@ class Delaunay:
                     t23.set_neigh(e23, t2_new)
                 if t24 is not None:
                     t24.set_neigh(e24, t2_new)
-                # добавляем новые потенциально опасные треугольники
+                # добавляем новые потенциально опасные треугольники - пары [треугольник, проблемное ребро]
                 flip_list.append([t14, e14])
                 flip_list.append([t24, e24])
 
@@ -191,7 +191,7 @@ class Delaunay:
         self.triangles_list.append(new_t2)
         self.triangles_list.append(new_t3)
 
-        # рёбра для возможного flip
+        # рёбра для возможного flip - пары [треугольник, проблемное ребро]
         return deque([[new_t1, e1], [new_t2, e2], [new_t3, e3]])
 
     # отрисовка триангуляции
