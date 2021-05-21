@@ -1,5 +1,7 @@
 # Delaunay-triangulation
 
+![alt text](https://github.com/Maksim787/Delaunay-triangulation/blob/main/Screenshot.png)
+
 Динамический алгоритм. Рисует изначально треугольник по трём точкам, а затем добавляет в него по точке из пользовательского ввода.
 Пример ввода в ```example.txt```
 
