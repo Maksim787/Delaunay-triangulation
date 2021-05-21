@@ -23,6 +23,9 @@ class Triangle:
 
     # проверка, есть ли точка в треугольнике
     def is_point_in(self, point):
+        # метод площадей
+        # считаем сумму трёх площадей, образованных рёбрами треугольника и данной точкой
+        # сравниваем её с площадью треугольника; если равны, то точка внутри
         p1, p2, p3 = self.points()
         S1 = Triangle.S(p1, p2, point)
         S2 = Triangle.S(p2, p3, point)
@@ -75,9 +78,9 @@ class Delaunay:
         self.triangles_list = [Triangle.make_from_points(*points)]
 
     def add_point(self, p):
+        # получаем новые образованные треугольники в виде очереди
         flip_list = self.make_triangles(p)
-        # print("Before flip")
-        # self.plot()
+        # флипаем некоторые, добавляем их соседей в очередь
         while flip_list:
             t1, e = flip_list.popleft()
             if t1 is None:
@@ -88,10 +91,10 @@ class Delaunay:
             p1, p2 = e
             p3 = t1.get_opposite(e)
             p4 = t2.get_opposite(e)
+            # получаем окружность по трём точкам
             circle_now = Utility.get_circle(p1, p2, p3)
+            # если четвертая точка в коружности, то делаем флип
             if Utility.is_in_circle(circle_now, p4):
-                # print(f"Flip: t1: {t1.points()}, t2: {t2.points()}")
-                # print(p1, p2, p3, p4)
                 id1 = t1.id
                 id2 = t2.id
                 e13 = (p1, p3)
@@ -115,6 +118,7 @@ class Delaunay:
                                   id2)
                 t1_new.set_neigh(e34, t2_new)
 
+                # заменяем старые треугольники на новые
                 self.triangles_list[id1] = t1_new
                 self.triangles_list[id2] = t2_new
 
@@ -126,13 +130,11 @@ class Delaunay:
                     t23.set_neigh(e23, t2_new)
                 if t24 is not None:
                     t24.set_neigh(e24, t2_new)
+                # добавляем новые потенциально опасные треугольники
                 flip_list.append([t14, e14])
                 flip_list.append([t24, e24])
-                # print("After flip")
-                # self.plot()
 
     def make_triangles(self, p):
-        insert_index = 0
         # ищем треугольник для вставки внутрь него точки
         for index in range(len(self.triangles_list)):
             if self.triangles_list[index].is_point_in(p):
@@ -196,8 +198,6 @@ class Delaunay:
     def plot(self):
         for triangle in self.triangles_list:
             for edge, triangle_neigh in triangle.neighbours:
-                # print(edge, end=' ')
                 plt.plot([edge[0].real, edge[1].real],
                          [edge[0].imag, edge[1].imag])
-            # print()
         plt.show()

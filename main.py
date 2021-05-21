@@ -1,6 +1,7 @@
 from delaunay import *
 
 
+# обработка ввода треугольника в комплексные точки
 def get_triangle():
     s = input().split(';')
     points = []
@@ -10,23 +11,24 @@ def get_triangle():
     return points
 
 
+# обработка ввода точки в комплексную точку
 def get_point():
     s = input()
     if not s:
         return
-    return complex(*map(int, s.split(',')))
+    return complex(*map(int, s.split()))
 
 
 print("Введите граничный треугольник (внутри которого будет строиться триангуляция).")
 print("Введите координаты трёх точек через ';' в формате: a b; c d; e f")
-print("Например: 0 0; 100 0; 0 100")
+print("Например: 0 0; 1000 0; 500 866")
 start_points = get_triangle()
 delaunay = Delaunay(start_points)
 delaunay.plot()
 while True:
-    print("\nВводите координаты новых точек через ';' в формате: (a, b)")
-    print("Можно вводить только те точки, которые помещаются в начальный треугольник.")
-    print("Например, (10, 10)")
+    print("\nВводите координаты новых точек через пробел в формате: a, b")
+    print("Можно вводить только те точки, которые помещаются в начальный треугольник, и не лежат на одной прямой с другими.")
+    print("Например: 10 10")
     print("Для выхода в любой момент нажмите Enter.")
     point = get_point()
     if not point:
