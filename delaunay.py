@@ -10,9 +10,9 @@ class Delaunay:
         self.triangles_list = [Triangle.make_from_points(*points)]
 
     def add_point(self, p):
-        # получаем новые образованные треугольники в виде очереди
+        # получаем новые образованные рёбра и треугольники в виде очереди
         flip_list = self.make_triangles(p)
-        # флипаем некоторые, добавляем их соседей в очередь
+        # флипаем некоторые рёбра, добавляем их соседей в очередь
         while flip_list:
             t1, e = flip_list.popleft()
             if t1 is None:
@@ -65,6 +65,8 @@ class Delaunay:
                 # добавляем новые потенциально опасные ребра в виде пар [треугольник, проблемное ребро]
                 flip_list.append([t14, e14])
                 flip_list.append([t24, e24])
+                flip_list.append([t13, e13])
+                flip_list.append([t23, e23])
 
     def make_triangles(self, p):
         # ищем треугольник для вставки внутрь него точки
