@@ -1,4 +1,4 @@
-from delaunay import *
+from delaunay import Delaunay
 
 
 # обработка ввода треугольника в комплексные точки
@@ -26,7 +26,7 @@ start_points = get_triangle()
 delaunay = Delaunay(start_points)
 delaunay.plot()
 while True:
-    print("\nВводите координаты новых точек через пробел в формате: a, b")
+    print("\nВводите координаты новых точек через пробел в формате: a b")
     print("Можно вводить только те точки, которые помещаются в начальный треугольник")
     print("Например: 10 10")
     print("Для выхода в любой момент нажмите Enter.")
